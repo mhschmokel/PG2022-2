@@ -23,7 +23,7 @@ int main()
 {
 	glfwInit();
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Lista2 - Exercicio2", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Lista2 - Exercicio4", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	glfwSetKeyCallback(window, key_callback);
@@ -40,8 +40,6 @@ int main()
 	cout << "OpenGL version supported " << version << endl;
 
 	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
 
 	Shader shader("../../dependencies/shaders/vertex.vs", "../../dependencies/shaders/fragment.fs");
 
@@ -54,32 +52,34 @@ int main()
 	glUseProgram(shader.ID);
 
 	glm::mat4 projection = glm::mat4(1);
-	projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+	projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
 
-	GLint projLoc = glGetUniformLocation(shader.ID, "projection");
-	glUniformMatrix4fv(projLoc, 1, false, glm::value_ptr(projection));
+	shader.setMat4("projection", glm::value_ptr(projection));
 
 	while (!glfwWindowShouldClose(window))
 	{
-			glfwPollEvents();
-		
-			glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
-		
-			glLineWidth(10);
-			glPointSize(20);
-		
-			glBindVertexArray(VAO);
+		glfwPollEvents();
 
-			glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+		glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glLineWidth(3);
+		glPointSize(5);
 		
-			glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f);
-			glDrawArrays(GL_POINTS, 0, 3);
-			
-			glBindVertexArray(0);
-		
-			glfwSwapBuffers(window);
+		glfwGetFramebufferSize(window, &width, &height);
+		glViewport(400, 300, width/2, height/2);
+
+		glBindVertexArray(VAO);
+
+		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f);
+		glDrawArrays(GL_POINTS, 0, 3);
+
+		glBindVertexArray(0);
+
+		glfwSwapBuffers(window);
 	}
 	glDeleteVertexArrays(1, &VAO);
 
@@ -96,14 +96,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 int setupGeometry()
 {
 	GLfloat vertices[] = {
-		-10, -10, 0.0,
-		10, -10, 0.0,
-		0.0, 10, 0.0,
+		-0.5 * 300 + 400, -0.5 * 300 + 300, 0.0,
+		0.5 * 300 + 400 , -0.5 * 300 + 300, 0.0,
+		0.0 * 300 + 400, 0.5 * 300 + 300, 0.0,
+		//outro triangulo vai aqui
 	};
 	/*GLfloat vertices[] = {
-		-0.5, -0.5, 0.0,
-		0.5, -0.5, 0.0,
-		0.0, 0.5, 0.0,
+		-5, -5, 0.0,
+		5, -5, 0.0,
+		0.0, 5, 0.0,
 	};*/
 
 	GLuint VBO, VAO;
