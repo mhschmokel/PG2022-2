@@ -13,3 +13,7 @@ A utilização de um Shader via arquivo foi implementada nos exercícios 7, 8 e 
 Os exercícios 1, 2, 4 e 5 estão desenvolvidos dentro da solution Lista2
 
 A resposta do exercício 3 encontra-se no documento word.
+
+## Lista 3
+
+Os exercícios 1, 2, 3 e extra estão desenvolvidos dentro da solution Lista3
