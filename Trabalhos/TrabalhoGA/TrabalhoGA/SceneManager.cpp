@@ -32,42 +32,32 @@ void SceneManager::initialize(GLuint w, GLuint h)
 
 	gameHasEnded = false;
 	
-	// GLFW - GLEW - OPENGL general setup -- TODO: config file
 	initializeGraphics();
 
 }
 
 void SceneManager::initializeGraphics()
 {
-	// Init GLFW
 	glfwInit();
 
 	string gameName = iniFileReader->getValueByKey("gameName");
 	window = glfwCreateWindow(width, height, gameName.c_str(), nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
-	// Set the required callback functions
 	glfwSetKeyCallback(window, key_callback);
 
-	//Setando a callback de redimensionamento da janela
 	glfwSetWindowSizeCallback(window, resize);
 	
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 
 	}
-
-	// Build and compile our shader program
 	shader = addShader("../../dependencies/shaders/vertex.vs", "../../dependencies/shaders/fragment.fs");
 
-	//setup the scene -- LEMBRANDO QUE A DESCRIÇÃO DE UMA CENA PODE VIR DE ARQUIVO(S) DE 
-	// CONFIGURAÇÃO
 	setupScene();
 
-	resized = true; //para entrar no setup da câmera na 1a vez
+	resized = true;
 
 }
 
