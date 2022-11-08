@@ -1,12 +1,26 @@
 import cv2 as cv
+from FilterFunctions import *
+from filterController import *
 
 def processCamera():
+    filters_controller = filterController()
+
     camera = cv.VideoCapture(0)
+    
+    res, imgCap = camera.read()
+    cv.imshow('Camera', imgCap)
+
+    filters_controller.initButtons(cv=cv)
 
     while True:
-        img = camera.read()
+        res, imgCap = camera.read()
 
-        cv.imshow('Camera', img)
+        for filter in filters.items():
+            if filter[1].isActive:
+                imgCap = filter[1].function(imgCap)
+
+        if res: 
+            cv.imshow('Camera', imgCap)
 
         k = cv.waitKey(20) & 0xFF
 
