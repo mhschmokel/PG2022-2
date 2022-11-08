@@ -14,7 +14,7 @@ def processCamera():
 
     while True:
         res, imgCap = camera.read()
-
+        
         for filter in filters.items():
             if filter[1].isActive:
                 imgCap = filter[1].function(imgCap)
