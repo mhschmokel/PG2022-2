@@ -1,9 +1,12 @@
 import cv2 as cv
 from FilterFunctions import *
 from filterController import *
+from Sticker import *
+from StickerController import *
 
 def processCamera():
     filters_controller = filterController()
+    sticker_controller = StickController()
 
     camera = cv.VideoCapture(0)
     
@@ -11,9 +14,15 @@ def processCamera():
     cv.imshow('Camera', imgCap)
 
     filters_controller.initButtons(cv=cv)
+    sticker_controller.initButtons(cv=cv)
+
+    cv.setMouseCallback('Camera', mouseCallback)
 
     while True:
         res, imgCap = camera.read()
+
+        for sticker in stickers:
+            img = stickerTransparent(img, sticker.image, int((sticker.x - sticker.image.shape[0]/2)), int((sticker.y - sticker.image.shape[1]/2)))
         
         for filter in filters.items():
             if filter[1].isActive:
