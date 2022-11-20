@@ -69,7 +69,6 @@ def stickerTransparent(background, sticker, x_offset=None, y_offset=None):
 def handleStickerIndex(*args):
   global stickerIndex
   stickerIndex = args[1]
-  print(stickerIndex)
 
 def mouseCallback(event, x, y, flags, param):
   global stickerIndex, stickers
