@@ -23,7 +23,6 @@ stickersImages = [
   cv.imread("stickers/fuleco.png", cv.IMREAD_UNCHANGED),
 ]
 
-# escala de cada respectiva imagem dos sticker, pois cada uma foi salva com um tamanho diferente
 stickersScalePercent = [
   0,
   25,
@@ -56,7 +55,7 @@ def stickerTransparent(background, sticker, x_offset=None, y_offset=None):
   background_subsection = background[bg_y:bg_y + h, bg_x:bg_x + w]
 
   sticker_colors = sticker[:, :, :3]
-  alpha_channel = sticker[:, :, 3] / 255  # 0-255 => 0.0-1.0
+  alpha_channel = sticker[:, :, 3] / 255
 
   alpha_mask = np.dstack((alpha_channel, alpha_channel, alpha_channel))
 

@@ -21,8 +21,8 @@ def processCamera():
     while True:
         res, imgCap = camera.read()
 
-        for sticker in stickers:
-            img = stickerTransparent(img, sticker.image, int((sticker.x - sticker.image.shape[0]/2)), int((sticker.y - sticker.image.shape[1]/2)))
+        for sticker in stickersOnScreen:
+            imgCap = stickerTransparent(imgCap, sticker.image, int((sticker.x - sticker.image.shape[0]/2)), int((sticker.y - sticker.image.shape[1]/2)))
         
         for filter in filters.items():
             if filter[1].isActive:
