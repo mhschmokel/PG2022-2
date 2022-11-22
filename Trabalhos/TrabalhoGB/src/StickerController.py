@@ -70,7 +70,7 @@ def handleStickerIndex(*args):
   stickerIndex = args[1]
 
 def mouseCallback(event, x, y, flags, param):
-  global stickerIndex, stickers
+  global stickerIndex, stickersOnScreen
   if event == cv.EVENT_LBUTTONDOWN and stickerIndex != 0:
     sticker = Sticker(x, y, cv.cvtColor(stickersImages[stickerIndex], cv.COLOR_BGR2BGRA), stickersScalePercent[stickerIndex])
     stickersOnScreen.append(sticker)
